@@ -62,19 +62,19 @@ def coin_list():
     else:
         return pd.DataFrame()
 
-def historical_data(coin_id):
+def historical_data(coin_id, timerange):
     api_key = "CG-Zqb3348miS6FQKP8dNpBWkSH"
     end_date = datetime.now()
-    start_date = end_date - timedelta(days=365)  # Ensure exactly 365 days
+    start_date = end_date - timedelta(days = timerange)
 
     url = f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart"
-
     params = {
         'vs_currency': 'usd',
-        'days': '365',
+        'days': timerange,
         'interval': 'daily',
         'x_cg_demo_api_key': api_key  
     }
+    
     response = requests.get(url, params=params)
 
     if response.status_code == 200:
